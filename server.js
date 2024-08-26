@@ -19,7 +19,13 @@ mongoose.connect(MONGODB_URI, {
 });
 
 // Enable CORS for all origins
-app.use(cors());
+app.use(cors({
+  origin: '*',  // Allow all origins
+  methods: ['GET', 'POST', 'OPTIONS'],  // Specify allowed methods
+  allowedHeaders: ['Content-Type'],  // Specify allowed headers
+  preflightContinue: false,  // Automatically handle preflight requests
+  optionsSuccessStatus: 204  // Ensure successful preflight response
+}));
 
 // Middleware
 app.use(bodyParser.json());
