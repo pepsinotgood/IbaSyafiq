@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cors = require('cors');  // Import cors
+const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
@@ -18,13 +18,12 @@ mongoose.connect(MONGODB_URI, {
   console.error('MongoDB connection error:', error);
 });
 
-// Enable CORS for all origins
+// Enable CORS
 app.use(cors({
-  origin: '*',  // Allow all origins
-  methods: ['GET', 'POST', 'OPTIONS'],  // Specify allowed methods
-  allowedHeaders: ['Content-Type'],  // Specify allowed headers
-  preflightContinue: false,  // Automatically handle preflight requests
-  optionsSuccessStatus: 204  // Ensure successful preflight response
+  origin: 'http://localhost:3000',  // Allow requests from your local frontend
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  optionsSuccessStatus: 204  // Ensure preflight requests respond with a successful status
 }));
 
 // Middleware
