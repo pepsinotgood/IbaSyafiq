@@ -1,0 +1,46 @@
+/* src/components/Invitation.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.invitation-container {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: calc(100vh - 10%);
+  background: url('../../../client/public/images/background1.svg') no-repeat center center fixed;
+  background-size: contain;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 5%; /* Adjusted to account for navbar height */
+  overflow-y: auto;
+  z-index: 0; /* Ensure this is lower than the navbar */
+  scroll-snap-type: y mandatory; /* Enable vertical snapping */
+  scroll-behavior: smooth; 
+}
+
+.invitation-image {
+  flex-shrink: 0;
+  height: 100vh; /* Stretch the image to fill the viewport height */
+  width: auto; /* Maintain the aspect ratio */
+  max-width: 100%; /* Ensure the image doesn't exceed the container's width */
+  object-fit: fill; /* Ensure the image covers the height while maintaining aspect ratio */
+  z-index: 0;
+  object-fit: fill; /* Stretch the image to fit the screen */
+  scroll-snap-align: start;
+}
+
+@media (max-width: 768px) {
+  .invitation-container {
+    background-size: cover;
+  }
+
+  .invitation-image {
+    width: 100vw;
+    height: calc(100vh - 10%);
+    object-fit: cover;
+  }
+}

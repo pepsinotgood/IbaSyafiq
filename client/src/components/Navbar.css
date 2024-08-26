@@ -1,0 +1,237 @@
+/* Navbar container */
+.navbar {
+  position: fixed !important;
+  bottom: 0;
+  width: 100%;
+  height: 6%; /* Adjust height for responsiveness */
+  background-color: #895d4a;
+  padding: 10px 0; /* Adjust padding for better spacing */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 1000;
+}
+
+/* Guide box inside the navbar */
+.guide-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #895d4a;
+  width: 100%; /* Make it full width for mobile */
+  max-width: 90%; /* Keep it responsive on larger screens */
+  height: 5%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Buttons inside the guide box */
+.guide-box .logo-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  flex-grow: 1; /* Ensure buttons take equal space */
+  text-align: center;
+}
+
+/* Images inside the buttons */
+.logo-image {
+  width: 5%; /* Fixed size for consistency across devices */
+  height: auto;
+}
+
+/* Popup styles */
+.rsvp-popup {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #895d4a;
+  border: 1px solid #3f271c;
+  border-radius: 8px;
+  padding: 0 10px;
+  padding-bottom: 10px;
+  box-shadow: 0 2px 8px #52473e;
+  max-width: 90%; /* Ensure popups are not too wide on mobile */
+}
+
+.rsvp-popup button {
+  margin-top: 10px; /* Adjust the value to control the space above the button */
+  padding: 10px;
+  margin-top: 40px;
+  border-radius: 4px;
+  border: 1px solid #463e3b;
+  background-color: #5e3f30; /* Button background color */
+  color: white; /* Button text color */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.rsvp-popup input {
+  padding: 3px;
+  margin-top: 15px;
+  border-radius: 4px;
+  border: 1px solid #6b3f26;
+  background-color: white; /* Button background color */
+  color: black; /* Button text color */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 0.7rem;
+}
+
+.map-popup{
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #895d4a;
+  border: 1px solid #3f271c;
+  color: white;
+  border-radius: 7px;
+  padding: 5% 5%;
+  box-shadow: 0 2px 8px #52473e;
+  max-width: 90%; /* Ensure popups are not too wide on mobile */
+  text-align: left; /* Align text to the left */
+}
+
+.map-popup a {
+  font-size: 0.8rem; /* Adjust the font size */
+  font-weight: bold; /* Bold for Baini */
+  color: white;
+}
+
+
+.contacts-popup{
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #895d4a;
+  border: 1px solid #3f271c;
+  color: white;
+  border-radius: 7px;
+  padding: 0 5%;
+  box-shadow: 0 2px 8px #52473e;
+  max-width: 90%; /* Ensure popups are not too wide on mobile */
+  text-align: left; /* Align text to the left */
+}
+
+.contacts-popup p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Vertically aligns icons with the text */
+  margin: 5px 0; /* Space between entries */
+}
+
+.contact-entry {
+  display: flex;
+  align-items: center;
+  padding: 3% 3%;
+}
+
+.contacts-popup .name-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.contacts-popup .name {
+  font-size: 0.8rem; /* Adjust the font size */
+  font-weight: bold; /* Bold for Baini */
+}
+
+.contacts-popup .gelaran {
+  font-size: 0.7rem; /* Slightly smaller font size for Ummi */
+  font-weight: 300; /* Thinner weight */
+  font-style: italic; /* Italic for Ummi */
+}
+
+.contacts-popup .phone .contact-button {
+  background-color: transparent; /* Ensure the button background is transparent */
+  border: none; /* Remove any borders */
+  cursor: pointer; /* Make the pointer cursor appear on hover */
+  margin-left: 5%; /* Space between icons */
+  font-size: 1.5rem; /* Adjust the icon size */
+  padding-left: 40%; /* Remove any padding */
+}
+
+.contacts-popup .phone .contact-button i {
+  color: white; /* Ensure the icon color is white or match your design */
+}
+
+.contacts-popup .phone {
+  display: flex;
+  justify-content: flex-end; /* Aligns buttons to the right */
+  align-items: center;
+}
+
+/* Adjustments for the RSVP form */
+.rsvp-popup form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rsvp-popup select {
+  margin-top: 15px;
+  padding: 3px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  color: #413f3f;
+  max-height: 150px; /* Adjust this height as needed */
+  overflow-y: auto; /* Add vertical scroll if content exceeds max-height */
+  font-size: 0.7rem;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+}
+
+/* Optional: Styling for scrollbars */
+.rsvp-popup select::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.rsvp-popup select::-webkit-scrollbar-thumb {
+  background-color: #6b3f26; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners for the scrollbar thumb */
+}
+
+.rsvp-popup select::-webkit-scrollbar-track {
+  background-color: #f0f0f0; /* Background color of the scrollbar track */
+}
+
+.submission-status {
+  font-size: 0.7rem; /* Adjust font size as needed */
+  color: white; /* Green color for success message */
+  text-align: center; /* Center-align the text */
+  margin-top: 20px; /* Add some space above the message */
+  padding: 10px; /* Add some padding around the message */
+  border: 2px solid white; /* Border color matching the text color */
+  border-radius: 5px; /* Rounded corners for the border */
+}
+
+@media (max-width: 600px) {
+
+  .guide-box {
+    flex-direction: row; /* Change to vertical layout */
+  }
+
+  .logo-image {
+    width: 20%;
+  }
+
+  .navbar {
+    padding: 0 0;
+  }
+
+  .contacts-popup, .map-popup, .rsvp-popup {
+    bottom: 70px;
+    width: 90%;
+  }
+}
