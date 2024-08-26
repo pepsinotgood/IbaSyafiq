@@ -4,10 +4,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
 
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// MongoDB connection
+// Get the MongoDB URI from the environment variable or use localhost for development
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mydatabase';
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
@@ -18,23 +19,7 @@ mongoose.connect(MONGODB_URI, {
   console.error('MongoDB connection error:', error);
 });
 
-// Enable CORS
-app.use(cors({
-  origin: 'http://localhost:3000',  // Allow requests from your local frontend
-  methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
-  optionsSuccessStatus: 204  // Ensure preflight requests respond with a successful status
-}));
-
-// Middleware
-app.use(bodyParser.json());
-
-// Root route
-app.get('/', (req, res) => {
-  res.send('Welcome to the backend! The server is running.');
-});
-
-// RSVP Route
+// Define a schema and model for your data
 const rsvpSchema = new mongoose.Schema({
   nama: { type: String, required: true },
   gelaranDikenali: { type: String, required: true },
@@ -43,6 +28,16 @@ const rsvpSchema = new mongoose.Schema({
 
 const Rsvp = mongoose.model('Rsvp', rsvpSchema);
 
+// Middleware
+app.use(bodyParser.json());
+app.use(cors()); // Allow CORS from any origin, you can restrict it in production
+
+// Root route
+app.get('/', (req, res) => {
+  res.send('Welcome to the backend! The server is running.');  // Respond with a message at the root URL
+});
+
+// Routes
 app.post('/api/rsvp', async (req, res) => {
   try {
     const rsvp = new Rsvp(req.body);
