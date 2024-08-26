@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Get the MongoDB URI from the environment variable or use localhost for development
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mydatabase';
+const MONGODB_URI = process.env.MONGODB_URI;
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -24,6 +24,8 @@ const rsvpSchema = new mongoose.Schema({
   nama: { type: String, required: true },
   gelaranDikenali: { type: String, required: true },
   bilanganPax: { type: Number, required: true },
+  date: { type: Date, default: () => new Date().toLocaleDateString() },  // Store the date of the RSVP
+  timestamp: { type: Date, default: Date.now }, 
 });
 
 const Rsvp = mongoose.model('Rsvp', rsvpSchema);
@@ -40,7 +42,15 @@ app.get('/', (req, res) => {
 // Routes
 app.post('/api/rsvp', async (req, res) => {
   try {
-    const rsvp = new Rsvp(req.body);
+    const { nama, gelaranDikenali, bilanganPax } = req.body;
+
+    // Automatically include the current date and timestamp
+    const rsvp = new Rsvp({
+      nama,
+      gelaranDikenali,
+      bilanganPax,
+    });
+
     await rsvp.save();
     res.status(201).json({ message: 'RSVP submitted successfully!', rsvp });
   } catch (error) {
