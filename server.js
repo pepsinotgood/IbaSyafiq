@@ -32,6 +32,11 @@ const Rsvp = mongoose.model('Rsvp', rsvpSchema);
 app.use(bodyParser.json());
 app.use(cors()); // Allow CORS from any origin, you can restrict it in production
 
+// Root route
+app.get('/', (req, res) => {
+  res.send('Welcome to the backend! The server is running.');  // Respond with a message at the root URL
+});
+
 // Routes
 app.post('/api/rsvp', async (req, res) => {
   try {
