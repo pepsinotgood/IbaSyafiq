@@ -10,6 +10,14 @@ const images = [
 ];
 
 const Invitation = () => {
+
+  const handleRSVPClick = () => {
+    const rsvpButton = document.querySelector('.rsvp-button');
+    if (rsvpButton) {
+      rsvpButton.click(); // Simulate a click on the RSVP button in the Navbar
+    }
+  };
+
   useEffect(() => {
     const audio = document.getElementById('background-audio');
     const playAudio = () => {
@@ -33,10 +41,16 @@ const Invitation = () => {
     <div className="invitation-container">
       <audio id="background-audio" src="/akad.mp3" loop></audio>
       {images.map((image, index) => (
-        <img key={index} src={image} alt={`Page ${index + 1}`} className="invitation-image" />
+        <div key={index} className="image-wrapper">
+          <img src={image} alt={`Page ${index + 1}`} className="invitation-image" />
+          {index === 2 && ( // Check if it is the third image
+          <button className="rsvp-trigger-button" onClick={handleRSVPClick}>
+            RSVP Now
+          </button>
+          )}
+        </div>
       ))}
-      <Navbar />
-
+      <Navbar/>
     </div>
   );
 };

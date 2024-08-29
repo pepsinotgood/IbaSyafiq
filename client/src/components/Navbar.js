@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './Navbar.css';
 const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'; // Fallback to local if REACT_APP_API_URL is not set
 
-
 const Navbar = () => {
   const [activePopup, setActivePopup] = useState(null);
   const [formData, setFormData] = useState({
@@ -10,13 +9,18 @@ const Navbar = () => {
     gelaranDikenali: '',
     bilanganPax: '',
   });
+  const [commentData, setCommentData] = useState({
+    name: '',
+    comment: '',
+  });
   const [submissionStatus, setSubmissionStatus] = useState(null);
+  const [commentStatus, setCommentStatus] = useState(null);
 
   const handleButtonClick = (popupName) => {
     if (activePopup === popupName) {
-      setActivePopup(null);
+      setActivePopup(null); // Close the popup if it's already open
     } else {
-      setActivePopup(popupName);
+      setActivePopup(popupName); // Open the selected popup
     }
   };
 
@@ -24,6 +28,14 @@ const Navbar = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleCommentChange = (e) => {
+    const { name, value } = e.target;
+    setCommentData({
+      ...commentData,
       [name]: value,
     });
   };
@@ -58,6 +70,36 @@ const Navbar = () => {
     }
   };
 
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+
+    // Check if all fields are filled
+    if (!commentData.name || !commentData.comment) {
+      alert('Please fill out all fields.');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${apiUrl}/api/comment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(commentData),
+      });
+
+      if (response.ok) {
+        setCommentStatus('Comment submitted successfully!');
+        setCommentData({ name: '', comment: '' });
+      } else {
+        setCommentStatus('Failed to submit comment.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      setCommentStatus('Error submitting comment.');
+    }
+  };
+
   return (
     <div className="navbar">
       <div className="guide-box">
@@ -67,8 +109,11 @@ const Navbar = () => {
         <button className="logo-button" onClick={() => handleButtonClick('map')}>
           <img src="/images/map.svg" alt="Map Logo" className="logo-image" />
         </button>
-        <button className="logo-button" onClick={() => handleButtonClick('rsvp')}>
+        <button className="logo-button rsvp-button" onClick={() => handleButtonClick('rsvp')}>
           <img src="/images/rsvp.svg" alt="RSVP Logo" className="logo-image" />
+        </button>
+        <button className="logo-button" onClick={() => handleButtonClick('comment')}>
+          <img src="/images/comment.svg" alt="Comment Logo" className="logo-image" />
         </button>
       </div>
 
@@ -123,57 +168,98 @@ const Navbar = () => {
 
       {activePopup === 'map' && (
         <div className="map-popup">
-          <a href="https://maps.app.goo.gl/k7xvN97KtJcGBRCMA" target="_blank" rel="noopener noreferrer">
-            Rumah Abang Jamil Klang
-          </a>
+          <span className="mapTitle">Rumah Abang Jamil Klang</span>
+          <br/><br/>
+          <div className="map-links-container">
+            <span className="map-list">
+              <a href="https://shorturl.at/gvu21" target="_blank" rel="noopener noreferrer">
+                <img src="/images/waze.svg" alt="Waze Icon" className="logo-map-image" />
+                : buka di Waze
+              </a>
+            </span>
+            <br/>
+            <span className="map-list">
+              <a href="https://maps.app.goo.gl/k7xvN97KtJcGBRCMA" target="_blank" rel="noopener noreferrer">
+                <img src="/images/gmap.svg" alt="Gmap Icon" className="logo-map-image" />
+                : buka di Google Map
+              </a>
+            </span>
+          </div>
         </div>
       )}
 
-{activePopup === 'rsvp' && (
-  <div className="rsvp-popup">
-    {submissionStatus ? (
-      <p className="submission-status">{submissionStatus}</p>
-    ) : (
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="nama"
-          placeholder="Nama"
-          value={formData.nama}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="text"
-          name="gelaranDikenali"
-          placeholder="Gelaran dikenali"
-          value={formData.gelaranDikenali}
-          onChange={handleChange}
-          required
-        />
-        <select
-          name="bilanganPax"
-          value={formData.bilanganPax}
-          onChange={handleChange}
-          required
-        >
-          <option value="" disabled>Bilangan Kehadiran</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-        <button type="submit">Hantar RSVP</button>
-      </form>
-    )}
-  </div>
-)}
+      {activePopup === 'rsvp' && (
+        <div className="rsvp-popup">
+          {submissionStatus ? (
+            <p className="submission-status">{submissionStatus}</p>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="nama"
+                placeholder="Nama"
+                value={formData.nama}
+                onChange={handleChange}
+                required
+              />
+              <input
+                type="text"
+                name="gelaranDikenali"
+                placeholder="Gelaran dikenali"
+                value={formData.gelaranDikenali}
+                onChange={handleChange}
+                required
+              />
+              <select
+                name="bilanganPax"
+                value={formData.bilanganPax}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>Bilangan Kehadiran</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <button type="submit">Hantar RSVP</button>
+            </form>
+          )}
+        </div>
+      )}
+
+      {activePopup === 'comment' && (
+        <div className="comment-popup">
+          {commentStatus ? (
+            <p className="comment-status">{commentStatus}</p>
+          ) : (
+            <form onSubmit={handleCommentSubmit}>
+              <input
+                type="text"
+                name="name"
+                placeholder="Nama"
+                value={commentData.name}
+                onChange={handleCommentChange}
+                required
+              />
+              <textarea
+                name="comment"
+                placeholder="Pesanan"
+                value={commentData.comment}
+                onChange={handleCommentChange}
+                required
+              />
+              <button type="submit">Hantar Pesanan</button>
+            </form>
+          )}
+        </div>
+      )}
     </div>
   );
 };

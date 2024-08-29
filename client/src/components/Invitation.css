@@ -33,6 +33,26 @@ body, html {
   scroll-snap-align: start;
 }
 
+.rsvp-trigger-button {
+  position: absolute;
+  top: 50%; /* Center the button vertically */
+  left: 50%; /* Center the button horizontally */
+  transform: translate(-50%, -50%);
+  background-color: #5e3f30; /* Button background color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.rsvp-trigger-button:hover {
+  background-color: #4e3326; /* Darker shade on hover */
+}
+
 @media (max-width: 768px) {
   .invitation-container {
     background-size: cover;
