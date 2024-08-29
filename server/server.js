@@ -30,6 +30,15 @@ const rsvpSchema = new mongoose.Schema({
 
 const Rsvp = mongoose.model('Rsvp', rsvpSchema);
 
+// Define a schema and model for comments
+const commentSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  comment: { type: String, required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+
+const Comment = mongoose.model('Comment', commentSchema);
+
 // Middleware
 app.use(bodyParser.json());
 app.use(cors()); // Allow CORS from any origin, you can restrict it in production
@@ -58,6 +67,25 @@ app.post('/api/rsvp', async (req, res) => {
   } catch (error) {
     console.error('Error submitting RSVP:', error);
     res.status(500).json({ message: 'Failed to submit RSVP', error });
+  }
+});
+
+// Route to handle comment submissions
+app.post('/api/comment', async (req, res) => {
+  try {
+    const { name, comment } = req.body;
+
+    const newComment = new Comment({
+      name,
+      comment,
+      timestamp: new Date(),
+    });
+
+    await newComment.save();
+    res.status(201).json({ message: 'Comment submitted successfully!', comment: newComment });
+  } catch (error) {
+    console.error('Error submitting comment:', error);
+    res.status(500).json({ message: 'Failed to submit comment', error });
   }
 });
 
