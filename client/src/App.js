@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Invitation from './components/Invitation';
 import Navbar from './components/Navbar';
 
-const apiUrl = 'http://localhost:5000';
+const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 function App() {
   const [comments, setComments] = useState([]);

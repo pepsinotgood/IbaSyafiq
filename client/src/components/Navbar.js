@@ -1,6 +1,6 @@
 import React, {  useState } from 'react';
 import './Navbar.css';
-const apiUrl = 'http://localhost:5000'; // Fallback to local if REACT_APP_API_URL is not set || process.env.REACT_APP_API_URL 
+const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'; // Fallback to local if REACT_APP_API_URL is not set || process.env.REACT_APP_API_URL 
 
 const Navbar = ({ fetchComments }) => {
   const [activePopup, setActivePopup] = useState(null);
