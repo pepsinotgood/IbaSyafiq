@@ -3,14 +3,15 @@
   position: fixed !important;
   bottom: 0;
   width: 100%;
-  height: 8%; /* Adjust height for responsiveness */
-  background-color: #895d4a;
+  height: 7%; /* Adjust height for responsiveness */
+  background-color: #855845;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   z-index: 1000;
+  margin-top: 20%;
 }
 
 /* Guide box inside the navbar */
@@ -19,10 +20,9 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: #895d4a;
+  background-color: #855845;
   width: 100%; /* Make it full width for mobile */
-  max-width: 90%; /* Keep it responsive on larger screens */
-  height: 5%;
+  max-width: 100%; /* Keep it responsive on larger screens */
   box-sizing: border-box;
 }
 
@@ -37,7 +37,7 @@
 
 /* Images inside the buttons */
 .logo-image {
-  width: 20%; /* Fixed size for consistency across devices */
+  width: 25%; /* Fixed size for consistency across devices */
   height: auto;
 }
 
@@ -50,21 +50,20 @@
   border: 1px solid #3f271c;
   color: white;
   border-radius: 7px;
-  padding: 5% 5%;
+  padding: 4% 5% 5% 5%;
   box-shadow: 0 2px 8px #52473e;
   text-align: center;
   max-width: 85%; /* Ensure popups are not too wide on mobile */
 }
 
-.map-popup a {
-  font-size: 0.8rem; /* Adjust the font size */ /* Bold for Baini */
-  color: white;
-}
-
 .mapTitle{
   font-size: 0.8rem; /* Adjust the font size */
-  position: center;
   font-weight: bold; 
+  text-align: center;
+}
+
+.map-links-container {
+  margin-top: 4%; /* Adds space above the map links */
 }
 
 .map-list {
@@ -83,7 +82,7 @@
 
 .map-list a {
   text-align: left; /* Ensures text aligns to the left */
-  font-size: 0.8rem; 
+  font-size: 0.75rem; 
   color: inherit; /* Keeps the text color */
 }
 
@@ -169,7 +168,7 @@
 
 .comment-popup button {
   padding: 10px;
-  margin-top: 40px;
+  margin-top: 35px;
   border-radius: 4px;
   border: 1px solid #463e3b;
   background-color: #5e3f30; /* Button background color */
@@ -180,7 +179,7 @@
 }
 
 .comment-popup input {
-  padding: 5px;
+  padding: 6px;
   margin-top: 15px;
   border-radius: 4px;
   border: 1px solid #6b3f26;
@@ -207,6 +206,14 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+}
+
+.comment-status {
+  font-size: 0.75rem; /* Adjust font size as needed */
+  color: white; /* Green color for success message */
+  text-align: center; /* Center-align the text */
+  margin-top: 20px; /* Add some space above the message */
+  padding: 5px; /* Add some padding around the message */
 }
 
 /* Popup styles */
@@ -287,13 +294,11 @@
 }
 
 .submission-status {
-  font-size: 0.7rem; /* Adjust font size as needed */
+  font-size: 0.75rem; /* Adjust font size as needed */
   color: white; /* Green color for success message */
   text-align: center; /* Center-align the text */
   margin-top: 20px; /* Add some space above the message */
-  padding: 10px; /* Add some padding around the message */
-  border: 2px solid white; /* Border color matching the text color */
-  border-radius: 5px; /* Rounded corners for the border */
+  padding: 5px; /* Add some padding around the message */
 }
 
 @media (max-width: 600px) {
@@ -305,7 +310,7 @@
   }
 
   .logo-image {
-    width: 35%;
+    width: 38%;
   }
 
   .contacts-popup, .map-popup, .rsvp-popup, .comment-popup{

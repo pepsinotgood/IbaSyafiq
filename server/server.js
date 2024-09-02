@@ -89,6 +89,15 @@ app.post('/api/comment', async (req, res) => {
   }
 });
 
+app.get('/api/comments', async (req, res) => {
+  try {
+    const comments = await Comment.find().sort({ timestamp: -1 });
+    res.json(comments);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch comments', error });
+  }
+});
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

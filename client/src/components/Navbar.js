@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import './Navbar.css';
-const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'; // Fallback to local if REACT_APP_API_URL is not set
+const apiUrl = 'http://localhost:5000'; // Fallback to local if REACT_APP_API_URL is not set || process.env.REACT_APP_API_URL 
 
-const Navbar = () => {
+const Navbar = ({ fetchComments }) => {
   const [activePopup, setActivePopup] = useState(null);
   const [formData, setFormData] = useState({
     nama: '',
@@ -18,9 +18,9 @@ const Navbar = () => {
 
   const handleButtonClick = (popupName) => {
     if (activePopup === popupName) {
-      setActivePopup(null); // Close the popup if it's already open
+      setActivePopup(null);
     } else {
-      setActivePopup(popupName); // Open the selected popup
+      setActivePopup(popupName);
     }
   };
 
@@ -59,10 +59,10 @@ const Navbar = () => {
       });
 
       if (response.ok) {
-        setSubmissionStatus('Dihantar!');
+        setSubmissionStatus('RSVP dihantar!');
         setFormData({ nama: '', gelaranDikenali: '', bilanganPax: '' });
       } else {
-        setSubmissionStatus('Failed to submit RSVP.');
+        setSubmissionStatus('RSVP gagal dihantar/');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -89,10 +89,11 @@ const Navbar = () => {
       });
 
       if (response.ok) {
-        setCommentStatus('Comment submitted successfully!');
+        setCommentStatus('Pesanan dihantar!');
         setCommentData({ name: '', comment: '' });
+        fetchComments();
       } else {
-        setCommentStatus('Failed to submit comment.');
+        setCommentStatus('Pesanan gagal dihantar.');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -109,7 +110,7 @@ const Navbar = () => {
         <button className="logo-button" onClick={() => handleButtonClick('map')}>
           <img src="/images/map.svg" alt="Map Logo" className="logo-image" />
         </button>
-        <button className="logo-button rsvp-button" onClick={() => handleButtonClick('rsvp')}>
+        <button className="logo-button" onClick={() => handleButtonClick('rsvp')}>
           <img src="/images/rsvp.svg" alt="RSVP Logo" className="logo-image" />
         </button>
         <button className="logo-button" onClick={() => handleButtonClick('comment')}>
@@ -169,7 +170,6 @@ const Navbar = () => {
       {activePopup === 'map' && (
         <div className="map-popup">
           <span className="mapTitle">Rumah Abang Jamil Klang</span>
-          <br/><br/>
           <div className="map-links-container">
             <span className="map-list">
               <a href="https://shorturl.at/gvu21" target="_blank" rel="noopener noreferrer">

@@ -1,7 +1,6 @@
-// src/components/Invitation.js
 import React, { useEffect } from 'react';
 import './Invitation.css';
-import Navbar from './Navbar'; 
+import Navbar from './Navbar';
 
 const images = [
   '/images/invite-page-1.svg',
@@ -9,33 +8,38 @@ const images = [
   '/images/invite-page-3.svg',
 ];
 
-const Invitation = () => {
+function formatDate(date) {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+  const year = String(date.getFullYear());
 
-  const handleRSVPClick = () => {
-    const rsvpButton = document.querySelector('.rsvp-button');
-    if (rsvpButton) {
-      rsvpButton.click(); // Simulate a click on the RSVP button in the Navbar
-    }
-  };
+  return `${day} . ${month} . ${year}`;
+}
+
+function capitalizeName(name) {
+  return name.replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+const Invitation = ({ comments, fetchComments }) => {
 
   useEffect(() => {
+    fetchComments();
+
     const audio = document.getElementById('background-audio');
     const playAudio = () => {
-      audio.play().catch(error => {
+      audio.play().catch((error) => {
         console.error('Auto-play was prevented. Please click somewhere to start the audio.', error);
       });
     };
 
     playAudio();
 
-    // Attach event listener to retry playing audio on user interaction
     document.addEventListener('click', playAudio);
 
-    // Cleanup event listener on unmount
     return () => {
       document.removeEventListener('click', playAudio);
     };
-  }, []);
+  }, [fetchComments]);
 
   return (
     <div className="invitation-container">
@@ -43,14 +47,28 @@ const Invitation = () => {
       {images.map((image, index) => (
         <div key={index} className="image-wrapper">
           <img src={image} alt={`Page ${index + 1}`} className="invitation-image" />
-          {index === 2 && ( // Check if it is the third image
-          <button className="rsvp-trigger-button" onClick={handleRSVPClick}>
-            RSVP Now
-          </button>
-          )}
         </div>
       ))}
-      <Navbar/>
+      <div className="before-scrollable-image">
+        <img src="/images/border-atas.svg" alt="Before Scrollable Image" className="additional-image" />
+      </div>
+      <div className="scrollable-container">
+        <div className="comments-container">
+          {comments.map((comment, index) => (
+            <div key={index} className="comment-box">
+              <p>" {comment.comment} "</p>
+              <span className="comment-meta">
+                - <strong>{capitalizeName(comment.name)},</strong> <span className="date">{formatDate(new Date(comment.timestamp))}</span>
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="after-scrollable-image">
+          <img src="/images/border-bawah.svg" alt="After Scrollable Image" className="additional-image" />
+        </div>
+
+      <Navbar fetchComments={fetchComments} />
     </div>
   );
 };
