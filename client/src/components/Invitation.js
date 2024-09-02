@@ -46,11 +46,11 @@ const Invitation = ({ comments, fetchComments }) => {
       <audio id="background-audio" src="/akad.mp3" loop></audio>
       {images.map((image, index) => (
         <div key={index} className="image-wrapper">
-          <img src={image} alt={`Page ${index + 1}`} className="invitation-image" />
+          <img src={image} alt="" className="invitation-image" />
         </div>
       ))}
       <div className="before-scrollable-image">
-        <img src="/images/border-atas.svg" alt="Before Scrollable Image" className="additional-image" />
+        <img src="/images/border-atas.svg" alt="" className="additional-image" />
       </div>
       <div className="scrollable-container">
         <div className="comments-container">
@@ -65,8 +65,8 @@ const Invitation = ({ comments, fetchComments }) => {
         </div>
       </div>
       <div className="after-scrollable-image">
-          <img src="/images/border-bawah.svg" alt="After Scrollable Image" className="additional-image" />
-        </div>
+        <img src="/images/border-bawah.svg" alt="" className="additional-image" />
+      </div>
 
       <Navbar fetchComments={fetchComments} />
     </div>
