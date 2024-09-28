@@ -52,7 +52,7 @@ app.get('/', (req, res) => {
 // Routes
 app.post('/api/rsvp', async (req, res) => {
   try {
-    const { nama, gelaranDikenali, bilanganPax } = req.body;
+    const { nama, gelaranDikenali, bilanganPax, slotMasa } = req.body;
 
     // Automatically include the current date and timestamp
     const rsvp = new Rsvp({
