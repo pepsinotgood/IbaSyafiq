@@ -24,6 +24,7 @@ const rsvpSchema = new mongoose.Schema({
   nama: { type: String, required: true },
   gelaranDikenali: { type: String, required: true },
   bilanganPax: { type: Number, required: true },
+  slotMasa: { type: Number, required: true },
   date: { type: String }, // Store the date of the RSVP
   timestamp: { type: Date, default: Date.now }, 
 });
@@ -58,6 +59,7 @@ app.post('/api/rsvp', async (req, res) => {
       nama,
       gelaranDikenali,
       bilanganPax,
+      slotMasa,
       date: new Date().toLocaleDateString(),
       timestamp: new Date(),
     });
