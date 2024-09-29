@@ -69,7 +69,7 @@
   background-color: #895d4a;
   border: 1px solid #3f271c;
   color: white;
-  border-radius: 8px;
+  border-radius: px;
   padding: 3% 5% 5% 5%;
   box-shadow: 0 2px 8px #52473e;
   justify-content: center;
@@ -107,7 +107,7 @@
 .map-image {
   margin-top: 2%;
   width: 90%;
-  border: 1.8px double #e7e7e7;
+  border: 1.8px dotted #e7e7e7;
   border-radius: 4px;
 }
 
