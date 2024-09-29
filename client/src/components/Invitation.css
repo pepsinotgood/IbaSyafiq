@@ -4,19 +4,19 @@ body, html {
   padding: 0;
   height: 100%;
   width: 100%;
+  overflow-x: hidden;
 }
 
 .invitation-container {
   position: relative;
   min-height: 100vh;
-  padding-bottom: calc(100vh - 10%);
   background: url('../../../client/public/images/background1.svg') no-repeat center center fixed;
   background-size: contain;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 5%; /* Adjusted to account for navbar height */
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 0; /* Ensure this is lower than the navbar */
   scroll-snap-type: y mandatory; /* Enable vertical snapping */
   scroll-behavior: smooth; 
@@ -58,7 +58,7 @@ body, html {
 
 .comment-box p {
   margin: 2.5px 0 2.5px 0; /* Space between paragraphs */
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-style: italic;
   text-align: justify;
   font-family: 'Times New Roman', Times, serif;

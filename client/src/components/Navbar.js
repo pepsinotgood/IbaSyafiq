@@ -2,12 +2,13 @@ import React, {  useState } from 'react';
 import './Navbar.css';
 const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'; // Fallback to local if REACT_APP_API_URL is not set || process.env.REACT_APP_API_URL 
 
-const Navbar = ({ fetchComments }) => {
-  const [activePopup, setActivePopup] = useState(null);
+const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
+
   const [formData, setFormData] = useState({
     nama: '',
     gelaranDikenali: '',
     bilanganPax: '',
+    slotMasa: '',
   });
   const [commentData, setCommentData] = useState({
     name: '',
@@ -44,8 +45,8 @@ const Navbar = ({ fetchComments }) => {
     e.preventDefault();
 
     // Check if all fields are filled
-    if (!formData.nama || !formData.gelaranDikenali || !formData.bilanganPax) {
-      alert('Please fill out all fields.');
+    if (!formData.nama || !formData.gelaranDikenali || !formData.bilanganPax || !formData.slotMasa) {
+      alert('Sila isi ruangan ini.');
       return;
     }
 
@@ -60,9 +61,9 @@ const Navbar = ({ fetchComments }) => {
 
       if (response.ok) {
         setSubmissionStatus('RSVP dihantar!');
-        setFormData({ nama: '', gelaranDikenali: '', bilanganPax: '' });
+        setFormData({ nama: '', gelaranDikenali: '', bilanganPax: '', slotMasa:''});
       } else {
-        setSubmissionStatus('RSVP gagal dihantar/');
+        setSubmissionStatus('RSVP gagal dihantar.');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -75,7 +76,7 @@ const Navbar = ({ fetchComments }) => {
 
     // Check if all fields are filled
     if (!commentData.name || !commentData.comment) {
-      alert('Please fill out all fields.');
+      alert('Sila isi ruangan ini.');
       return;
     }
 
@@ -104,19 +105,35 @@ const Navbar = ({ fetchComments }) => {
   return (
     <div className="navbar">
       <div className="guide-box">
+        <div className="logo-container">
         <button className="logo-button" onClick={() => handleButtonClick('contacts')}>
           <img src="/images/phone.svg" alt="Call Logo" className="logo-image" />
         </button>
+        <span className="logo-text">Hubung</span>
+        </div>
+
+        <div className="logo-container">
         <button className="logo-button" onClick={() => handleButtonClick('map')}>
           <img src="/images/map.svg" alt="Map Logo" className="logo-image" />
         </button>
+        <span className="logo-text">Lokasi</span>
+        </div>
+
+        <div className="logo-container">
         <button className="logo-button" onClick={() => handleButtonClick('rsvp')}>
           <img src="/images/rsvp.svg" alt="RSVP Logo" className="logo-image" />
         </button>
+        <span className="logo-text">Kehadiran</span>
+        </div>
+
+        <div className="logo-container">
         <button className="logo-button" onClick={() => handleButtonClick('comment')}>
           <img src="/images/comment.svg" alt="Comment Logo" className="logo-image" />
         </button>
+        <span className="logo-text">Nota Kasih</span>
+        </div>
       </div>
+      
 
       {activePopup === 'contacts' && (
         <div className="contacts-popup">
@@ -169,21 +186,21 @@ const Navbar = ({ fetchComments }) => {
 
       {activePopup === 'map' && (
         <div className="map-popup">
-          <span className="mapTitle">Rumah Abang Jamil Klang</span>
+          <img src="/images/abangjamil.svg" alt="Rumah Abang Jamil" className="map-image" />
+          <div className="map-address">Rumah Abang Jamil Klang, Plot 8, Lot 142770, Jalan Langat, Bandar Botanik, 42000 Klang, Selangor</div>
           <div className="map-links-container">
-            <span className="map-list">
+            <div className="map-list" align="left">
               <a href="https://shorturl.at/gvu21" target="_blank" rel="noopener noreferrer">
                 <img src="/images/waze.svg" alt="Waze Icon" className="logo-map-image" />
-                : buka di Waze
+                buka di Waze
               </a>
-            </span>
-            <br/>
-            <span className="map-list">
+            </div>
+            <div className="map-list" align="right">
               <a href="https://maps.app.goo.gl/k7xvN97KtJcGBRCMA" target="_blank" rel="noopener noreferrer">
                 <img src="/images/gmap.svg" alt="Gmap Icon" className="logo-map-image" />
-                : buka di Google Map
+                buka di Google Map
               </a>
-            </span>
+            </div>
           </div>
         </div>
       )}
@@ -205,7 +222,7 @@ const Navbar = ({ fetchComments }) => {
               <input
                 type="text"
                 name="gelaranDikenali"
-                placeholder="Gelaran dikenali"
+                placeholder="No Telefon"
                 value={formData.gelaranDikenali}
                 onChange={handleChange}
                 required
@@ -228,7 +245,19 @@ const Navbar = ({ fetchComments }) => {
                 <option value="9">9</option>
                 <option value="10">10</option>
               </select>
-              <button type="submit">Hantar RSVP</button>
+              <select
+                name="slotMasa"
+                value={formData.slotMasa}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>Slot Masa</option>
+                <option value="7">7pm - 8pm</option>
+                <option value="8">8pm - 9pm</option>
+                <option value="9">9pm - 10pm</option>
+                <option value="10">10pm - 11pm</option>
+              </select>
+              <button type="submit">Hantar Kehadiran</button>
             </form>
           )}
         </div>

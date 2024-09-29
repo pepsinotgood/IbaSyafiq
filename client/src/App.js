@@ -7,6 +7,11 @@ const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 function App() {
   const [comments, setComments] = useState([]);
+  const [activePopup, setActivePopup] = useState(null); 
+
+  const triggerRSVP = () => {
+    setActivePopup('rsvp'); // Set activePopup to 'rsvp' to trigger the RSVP popup
+  };
 
   const fetchComments = useCallback(async () => {
     try {
@@ -28,7 +33,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Invitation comments={comments} fetchComments={fetchComments} />} />
         </Routes>
+        <button onClick={triggerRSVP}>Open RSVP Popup</button>
         <Navbar fetchComments={fetchComments} />
+
+        <Navbar activePopup={activePopup} setActivePopup={setActivePopup} fetchComments={fetchComments} />
+
       </div>
     </Router>
   );
