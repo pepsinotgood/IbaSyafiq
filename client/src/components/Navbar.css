@@ -69,7 +69,7 @@
   background-color: #895d4a;
   border: 1px solid #3f271c;
   color: white;
-  border-radius: px;
+  border-radius: 7px;
   padding: 3% 5% 5% 5%;
   box-shadow: 0 2px 8px #52473e;
   justify-content: center;
@@ -80,10 +80,10 @@
 }
 
 .map-links-container {
-  margin-top: 10%; /* Adds space above the map links */
+  margin-top: 12%; /* Adds space above the map links */
   display: flex; /* Align the links horizontally */
   flex-direction: row;
-  width: 90%;
+  width: 95%;
 }
 
 .map-list {
@@ -98,17 +98,17 @@
 }
 
 .map-address{
-  width: 90%;
-  font-size: 0.78rem; 
+  width: 95%;
+  font-size: 0.75rem; 
   text-align: justify;
   margin-top: 3.5%;
 }
 
 .map-image {
   margin-top: 2%;
-  width: 90%;
-  border: 1.8px dotted #e7e7e7;
-  border-radius: 4px;
+  width: 95%;
+  border: 2px dotted #756f6d;
+  border-radius: 7px;
 }
 
 .map-list a {
@@ -122,8 +122,6 @@
   flex-direction: column;
   position: absolute;
   bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
   background-color: #895d4a;
   border: 1px solid #3f271c;
   color: white;
@@ -144,7 +142,7 @@
 .contact-entry {
   display: flex;
   align-items: center;
-  padding: 2% 3%;
+  padding: 3% 3%;
 }
 
 .contacts-popup .name-wrapper {
@@ -185,8 +183,6 @@
 .comment-popup {
   position: absolute;
   bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
   background-color: #895d4a;
   border: 1px solid #3f271c;
   border-radius: 8px;
@@ -250,8 +246,6 @@
 .rsvp-popup {
   position: absolute;
   bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
   background-color: #895d4a;
   border: 1px solid #3f271c;
   border-radius: 8px;
