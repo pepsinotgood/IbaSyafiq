@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import './Invitation.css';
 import Navbar from './Navbar';
 
@@ -22,49 +22,16 @@ function capitalizeName(name) {
 
 const Invitation = ({ comments, fetchComments }) => {
 
-  const [audioPlaying, setAudioPlaying] = useState(false);  // Track whether the audio is playing
-
   useEffect(() => {
     fetchComments();
-
-    const audio = document.getElementById('background-audio');
-
-    const playAudio = () => {
-      if (!audioPlaying) {
-        audio.play().then(() => {
-          setAudioPlaying(true);  // Mark audio as playing to prevent multiple triggers
-        }).catch((error) => {
-          console.error('Audio play failed:', error);
-        });
-      }
-    };
-
-    document.addEventListener('click', playAudio);
-    document.addEventListener('keydown', playAudio);
-    document.addEventListener('scroll', playAudio);
-    document.addEventListener('touchstart', playAudio);
-
-    return () => {
-      document.removeEventListener('click', playAudio);
-      document.removeEventListener('keydown', playAudio);
-      document.removeEventListener('scroll', playAudio);
-      document.removeEventListener('touchstart', playAudio);
-    };
-  }, [audioPlaying, fetchComments]);
-
-  const handleImageClick = () => {
-    const audio = document.getElementById('background-audio');
-    audio.play().catch((error) => {
-      console.error('Audio play failed:', error);
-    });
-  };
+  }, [fetchComments]);
 
   return (
     <div className="invitation-container">
-      <audio id="background-audio" src="/akad.mp3" loop></audio>
+      {/* Remove background audio logic since it's now handled at the App.js level */}
       {images.map((image, index) => (
         <div key={index} className="image-wrapper">
-          <img src={image} alt="" className="invitation-image" onClick={handleImageClick} />
+          <img src={image} alt="" className="invitation-image" />
         </div>
       ))}
       <div className="before-scrollable-image">

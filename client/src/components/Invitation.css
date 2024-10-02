@@ -93,7 +93,7 @@ body, html {
   margin-bottom: -10px !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .invitation-container {
     background-size: cover;
   }
@@ -102,5 +102,17 @@ body, html {
     width: 100vw;
     height: calc(100vh - 10%);
     object-fit: cover;
+  }
+
+  .after-scrollable-image {
+    width: 100%;
+    height: auto; /* This ensures the image maintains its aspect ratio */
+    display: block;
+  }
+
+  .before-scrollable-image {
+    width: 100%;
+    height: auto; /* This ensures the image maintains its aspect ratio */
+    display: block;
   }
 }

@@ -3,18 +3,72 @@
   position: fixed !important;
   bottom: 0;
   width: 100%;
-  height: 8%; /* Adjust height for responsiveness */
-  background-color: #855845;
+  height: 8.5%; /* Adjust height for responsiveness */
+  background-color: hsl(18, 32%, 40%);
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  z-index: 1000;
-  margin-top: 20%;
+  z-index: 1001;
 }
 
-/* Guide box inside the navbar */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 91.5%;
+  background-color: #473329d5; /* Brown color with 50% opacity */
+  z-index: 999; /* Ensure it appears above other content */
+}
+
+.close-button-map{
+  border: none;
+  background-color: gray;
+  display: flex;
+  flex-direction: row;
+  align-items: right;
+  width: 100%;
+  margin: 0%;
+  width: 5%;
+}
+
+.close-button-contact{
+  border: none;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  margin: 1%;
+  width: 5%;
+}
+
+.close-button-rsvp{
+  border: none;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  margin: 1%;
+  width: 5%;
+}
+
+.close-button-comment{
+  border: none;
+  background-color: gray;
+  display: flex;
+  flex-direction: column;
+  align-items: right;
+  margin: 1%;
+}
+
+.x-sign {
+  font-weight: bold;
+  color: white;
+  font-size:x-large;
+}
+
 .guide-box {
   display: flex;
   flex-direction: row;
@@ -27,16 +81,6 @@
   box-sizing: border-box;
 }
 
-/* Buttons inside the guide box */
-.guide-box{
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  flex-grow: 1; /* Ensure buttons take equal space */
-  text-align: center;
-  height: 4%;
-}
-
 .logo-button {
   background-color: transparent;
   border: none;
@@ -47,7 +91,7 @@
 
 /* Images inside the buttons */
 .logo-image {
-  width: 25%; /* Fixed size for consistency across devices */
+  width: 24%; /* Fixed size for consistency across devices */
   height: auto;
 }
 
@@ -63,25 +107,36 @@
   color: white;
 }
 
+.title{
+  font-weight: bold;
+  margin-bottom: 2%;
+  margin-top: 0%;
+  margin-right: 5%;
+  text-align: center;
+  color: whitesmoke;
+  font-size: medium;
+}
+
 .map-popup {
   position: absolute;
   bottom: 180px;
   background-color: #895d4a;
-  border: 1px solid #3f271c;
+  border: 1px solid #3a3a3a;
   color: white;
   border-radius: 7px;
-  padding: 3% 5% 5% 5%;
+  padding: 0 2.5% 5% 5%;
   box-shadow: 0 2px 8px #52473e;
   justify-content: center;
   max-width: 85%; /* Ensure popups are not too wide on mobile */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  z-index: 1002;
 }
 
 .map-links-container {
   margin-top: 12%; /* Adds space above the map links */
   display: flex; /* Align the links horizontally */
+  align-items: center;
   flex-direction: row;
   width: 95%;
 }
@@ -126,10 +181,11 @@
   border: 1px solid #3f271c;
   color: white;
   border-radius: 7px;
-  padding: 0 5%;
+  padding: 0 5% 2% 2%;
   box-shadow: 0 2px 8px #52473e;
   max-width: 85%; /* Ensure popups are not too wide on mobile */
-  text-align: left; /* Align text to the left */
+  text-align:right; /* Align text to the left */
+  z-index: 1002;
 }
 
 .contacts-popup p {
@@ -142,12 +198,13 @@
 .contact-entry {
   display: flex;
   align-items: center;
-  padding: 3% 3%;
+  padding: 0% 3% 5% 8%;
 }
 
 .contacts-popup .name-wrapper {
   display: flex;
   flex-direction: column;
+  text-align: left;
 }
 
 .contacts-popup .name {
@@ -165,7 +222,7 @@
   background-color: transparent; /* Ensure the button background is transparent */
   border: none; /* Remove any borders */
   cursor: pointer; /* Make the pointer cursor appear on hover */
-  margin-left: 30px; /* Space between icons */
+  margin-left: 35px; /* Space between icons */
   font-size: 1.5rem; /* Adjust the icon size */
 }
 
@@ -190,9 +247,10 @@
   padding-bottom: 10px;
   box-shadow: 0 2px 8px #52473e;
   width: 90%; /* Ensure popups are not too wide on mobile */
+  z-index: 1002;
 }
 
-.comment-popup button {
+.submit-button {
   padding: 10px;
   margin-top: 35px;
   border-radius: 4px;
@@ -253,18 +311,9 @@
   padding-bottom: 10px;
   box-shadow: 0 2px 8px #52473e;
   max-width: 90%; /* Ensure popups are not too wide on mobile */
-}
-
-.rsvp-popup button {
-  padding: 10px;
-  margin-top: 40px;
-  border-radius: 4px;
-  border: 1px solid #463e3b;
-  background-color: #5e3f30; /* Button background color */
-  color: white; /* Button text color */
-  cursor: pointer; /* Pointer cursor on hover */
-  font-weight: bold;
-  font-size: 0.82rem;
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
 }
 
 .rsvp-popup input {
@@ -334,18 +383,19 @@
   padding: 5px; /* Add some padding around the message */
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1024px) {
 
   .guide-box {
     flex-direction: row; /* Change to vertical layout */
   }
 
   .logo-image {
-    width: 32%;
+    width: 40%;
   }
 
   .contacts-popup, .map-popup, .rsvp-popup, .comment-popup{
     bottom: 110%;
     width: 90%;
+    z-index: 1001;
   }
 }

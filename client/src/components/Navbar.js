@@ -2,7 +2,7 @@ import React, {  useState } from 'react';
 import './Navbar.css';
 const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'; // Fallback to local if REACT_APP_API_URL is not set || process.env.REACT_APP_API_URL 
 
-const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
+const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setAudioPlaying }) => {
 
   const [formData, setFormData] = useState({
     nama: '',
@@ -16,6 +16,16 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
   });
   const [submissionStatus, setSubmissionStatus] = useState(null);
   const [commentStatus, setCommentStatus] = useState(null);
+
+  const handleLaguClick = () => {
+    const audio = document.getElementById('background-audio');
+    if (audioPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setAudioPlaying(!audioPlaying); // Toggle the play/pause state
+  };
 
   const handleButtonClick = (popupName) => {
     if (activePopup === popupName) {
@@ -102,14 +112,20 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
     }
   };
 
+  const handleClosePopup = () => {
+    setActivePopup(null); // Close the popup when X button is clicked
+  };
+
   return (
     <div className="navbar">
+      {(activePopup==='contacts' || activePopup==='map' || activePopup==='rsvp' || activePopup==='comment') && <div className="overlay"></div>}
+
       <div className="guide-box">
         <div className="logo-container">
         <button className="logo-button" onClick={() => handleButtonClick('contacts')}>
           <img src="/images/phone.svg" alt="Call Logo" className="logo-image" />
         </button>
-        <span className="logo-text">Hubung</span>
+        <span className="logo-text">Telefon</span>
         </div>
 
         <div className="logo-container">
@@ -117,6 +133,13 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
           <img src="/images/map.svg" alt="Map Logo" className="logo-image" />
         </button>
         <span className="logo-text">Lokasi</span>
+        </div>
+
+        <div className="logo-container">
+        <button className="logo-button" onClick={handleLaguClick}>
+          <img src={audioPlaying ? "/images/pause.png" : "/images/play.png"} alt="Lagu Logo" className="logo-image" />
+        </button>
+        <span className="logo-text">Lagu</span>
         </div>
 
         <div className="logo-container">
@@ -137,6 +160,8 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
 
       {activePopup === 'contacts' && (
         <div className="contacts-popup">
+          <button className="close-button-contact" onClick={handleClosePopup}> <div className='x-sign'> x </div></button> 
+          <div className="title"> Telefon </div>
           <p className="contact-entry">
             <span className="name-wrapper">
               <span className="name">Zubaini</span>
@@ -186,6 +211,8 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
 
       {activePopup === 'map' && (
         <div className="map-popup">
+          <button className="close-button-map" onClick={handleClosePopup}> <div className='x-sign'> x </div></button> 
+          <div className="title"> Lokasi </div>
           <img src="/images/abangjamil.svg" alt="Rumah Abang Jamil" className="map-image" />
           <div className="map-address">Rumah Abang Jamil Klang, Plot 8, Lot 142770, Jalan Langat, Bandar Botanik, 42000 Klang, Selangor</div>
           <div className="map-links-container">
@@ -207,6 +234,8 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
 
       {activePopup === 'rsvp' && (
         <div className="rsvp-popup">
+          <button className="close-button-rsvp" onClick={handleClosePopup}> <div className='x-sign'> x </div></button> 
+          <div className="title"> Kehadiran </div>
           {submissionStatus ? (
             <p className="submission-status">{submissionStatus}</p>
           ) : (
@@ -222,7 +251,7 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
               <input
                 type="text"
                 name="gelaranDikenali"
-                placeholder="No Telefon"
+                placeholder="Nombor Telefon"
                 value={formData.gelaranDikenali}
                 onChange={handleChange}
                 required
@@ -257,7 +286,7 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
                 <option value="9">9pm - 10pm</option>
                 <option value="10">10pm - 11pm</option>
               </select>
-              <button type="submit">Hantar Kehadiran</button>
+              <button className="submit-button" type="submit">Hantar Kehadiran</button>
             </form>
           )}
         </div>
@@ -265,6 +294,8 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
 
       {activePopup === 'comment' && (
         <div className="comment-popup">
+          <button className="close-button-comment" onClick={handleClosePopup}> <div className='x-sign'> x </div></button> 
+          <div className="title"> Nota Kasih </div>
           {commentStatus ? (
             <p className="comment-status">{commentStatus}</p>
           ) : (
@@ -284,7 +315,7 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments }) => {
                 onChange={handleCommentChange}
                 required
               />
-              <button type="submit">Hantar Pesanan</button>
+              <button className="submit-button" type="submit">Hantar Pesanan</button>
             </form>
           )}
         </div>
