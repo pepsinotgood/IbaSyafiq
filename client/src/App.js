@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Invitation from './components/Invitation';
 import Navbar from './components/Navbar';
@@ -7,13 +7,16 @@ const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 function App() {
   const [comments, setComments] = useState([]);
-  const [activePopup, setActivePopup] = useState(null); 
-  const [audioPlaying, setAudioPlaying] = useState(false);
+  const [activePopup, setActivePopup] = useState(null);
+  const [audioPlaying, setAudioPlaying] = useState(false); // Keep track of whether the audio is playing
+  const [isContentVisible, setIsContentVisible] = useState(false); // Track if the main content is visible
+  const [isEnvelopeVisible, setIsEnvelopeVisible] = useState(true); // Track if the envelope is still visible
+  const audioRef = useRef(null); // Create a ref for the audio element
 
   const triggerRSVP = () => {
     setActivePopup('rsvp'); // Set activePopup to 'rsvp' to trigger the RSVP popup
+    playAudio(); // Play audio when RSVP button is clicked
   };
-
 
   const fetchComments = useCallback(async () => {
     try {
@@ -23,58 +26,68 @@ function App() {
     } catch (error) {
       console.error('Failed to fetch comments:', error);
     }
-  }, []); // Empty dependency array ensures this function is only created once
+  }, []);
 
   useEffect(() => {
     fetchComments();
-  }, [fetchComments]); // Dependency is fetchComments, which is memoized
+  }, [fetchComments]);
 
-
-  useEffect(() => {
-    const audio = document.getElementById('background-audio');
-
-    const playAudio = () => {
-      if (!audioPlaying) {
-        audio.play().then(() => {
-          setAudioPlaying(true); // Mark audio as playing to prevent multiple triggers
-        }).catch((error) => {
-          console.error('Audio play failed:', error);
+  // Function to play the audio
+  const playAudio = () => {
+    if (audioRef.current && !audioPlaying) {
+      audioRef.current.play()
+        .then(() => {
+          setAudioPlaying(true); // Set the state to true if audio starts playing successfully
+        })
+        .catch((error) => {
+          console.error('Audio playback failed:', error); // Catch any playback errors
         });
-      }
-    };
+    }
+  };
 
-    // Add event listeners to trigger audio on interaction
-    document.addEventListener('click', playAudio);
-    document.addEventListener('keydown', playAudio);
-    document.addEventListener('scroll', playAudio);
-    document.addEventListener('touchstart', playAudio);
+  // Handle the click on the envelope image
+  const handleEnvelopeClick = () => {
+    setIsEnvelopeVisible(false); // Hide the envelope
+    setTimeout(() => {
+      setIsContentVisible(true); // Reveal the main content with a slight delay for the animation
+      playAudio(); // Play the audio when user clicks on the envelope
+    }, 500); // Wait 500ms for the envelope to fade out before showing content
+  };
 
-    return () => {
-      // Clean up event listeners when the component unmounts
-      document.removeEventListener('click', playAudio);
-      document.removeEventListener('keydown', playAudio);
-      document.removeEventListener('scroll', playAudio);
-      document.removeEventListener('touchstart', playAudio);
-    };
-  }, [audioPlaying]);
-
-
-  
   return (
     <Router>
       <div className="App">
-      <audio id="background-audio" src="/akad.mp3" loop></audio>
-        <Routes>
-          <Route path="/" element={<Invitation comments={comments} fetchComments={fetchComments} />} />
-        </Routes>
-        <button onClick={triggerRSVP}>Open RSVP Popup</button>
-        <Navbar
-          activePopup={activePopup}
-          setActivePopup={setActivePopup}
-          fetchComments={fetchComments}
-          audioPlaying={audioPlaying}         // Pass audioPlaying state
-          setAudioPlaying={setAudioPlaying}   // Pass setAudioPlaying function
-        />
+        {/* The audio element, with ref attached */}
+        <audio ref={audioRef} src="/akad.mp3" loop></audio>
+
+        {/* Envelope Image */}
+        {isEnvelopeVisible && (
+          <div className="envelope-container" onClick={handleEnvelopeClick}>
+            <img
+              src="/images/envelope.svg"
+              alt="Envelope with Seal Wax"
+              className="envelope-image"
+            />
+          </div>
+        )}
+
+        {/* Main Content */}
+        {isContentVisible && (
+          <div className="fade-in-content"> {/* Apply animation here */}
+            <Routes>
+              <Route path="/" element={<Invitation comments={comments} fetchComments={fetchComments} />} />
+            </Routes>
+            <button onClick={triggerRSVP}>Open RSVP Popup</button>
+            <Navbar
+              activePopup={activePopup}
+              setActivePopup={setActivePopup}
+              fetchComments={fetchComments}
+              audioPlaying={audioPlaying}         // Pass audioPlaying state
+              setAudioPlaying={setAudioPlaying}   // Pass setAudioPlaying function
+              audioRef={audioRef}                 // Pass audioRef to Navbar
+            />
+          </div>
+        )}
       </div>
     </Router>
   );

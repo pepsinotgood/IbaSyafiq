@@ -28,6 +28,21 @@
   color: #61dafb;
 }
 
+.envelope-container {
+  height: 100vh; /* Full height of the viewport */
+  width: 100vw;  /* Full width of the viewport */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.envelope-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; /* Ensures the image covers the container without distortion */
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

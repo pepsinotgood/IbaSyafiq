@@ -1,8 +1,8 @@
-import React, {  useState } from 'react';
+import React, {  useState, useRef } from 'react';
 import './Navbar.css';
 const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000'; // Fallback to local if REACT_APP_API_URL is not set || process.env.REACT_APP_API_URL 
 
-const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setAudioPlaying }) => {
+const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setAudioPlaying, audioRef }) => {
 
   const [formData, setFormData] = useState({
     nama: '',
@@ -18,13 +18,26 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
   const [commentStatus, setCommentStatus] = useState(null);
 
   const handleLaguClick = () => {
-    const audio = document.getElementById('background-audio');
-    if (audioPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
+    if (!audioRef || !audioRef.current) {
+      console.error('Audio ref is undefined or not attached');
+      return;
     }
-    setAudioPlaying(!audioPlaying); // Toggle the play/pause state
+
+    const audio = audioRef.current;
+
+    // Check the current state of the audio (playing or not)
+    if (audioPlaying) {
+      audio.pause(); // Pause the audio if it’s playing
+      setAudioPlaying(false); // Update state to reflect pause
+    } else {
+      audio.play() // Play the audio if it’s paused
+        .then(() => {
+          setAudioPlaying(true); // Update state to reflect play
+        })
+        .catch((error) => {
+          console.error('Audio playback failed:', error);
+        });
+    }
   };
 
   const handleButtonClick = (popupName) => {
