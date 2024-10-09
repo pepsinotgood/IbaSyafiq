@@ -108,7 +108,7 @@
 }
 
 .inside-box{
-  margin-top: 0;
+  margin-top: 6%;
 }
 
 .guide-box {
@@ -151,7 +151,7 @@
 
 .logo-container.active .logo-text {
   font-weight: bold; /* Make the text bold when active */
-  font-size: 10.5px;
+  font-size: 11px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -209,6 +209,7 @@
 .map-image {
   width: 95%;
   border-radius: 7px;
+  margin-top: 7%;
 }
 
 .map-list a {
@@ -221,7 +222,6 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  bottom: 60px;
   background-color: #895d4a;
   border: 1px solid #3f271c;
   color: white;

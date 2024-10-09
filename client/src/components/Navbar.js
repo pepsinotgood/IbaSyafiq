@@ -177,14 +177,7 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
       
       {activePopup === 'contacts' && (
         <div className="contacts-popup">
-          <div className="popup-header">
-            <h4 className="popup-title">Telefon</h4>
-            <button className="close-button-contact" onClick={handleClosePopup}> 
-              <img src="/images/close.png" alt="Close" className="close-icon" />  
-            </button> 
-          </div>
           <div className='inside-box'>
-          <br />
           <p className="contact-entry">
             <span className="name-wrapper">
               <span className="name">Zubaini</span>
@@ -235,12 +228,6 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
 
 {activePopup === 'map' && (
   <div className="map-popup">
-    <div className="popup-header">
-      <h4 className="popup-title">Lokasi</h4>
-      <button className="close-button-map" onClick={handleClosePopup}> 
-        <img src="/images/close.png" alt="Close" className="close-icon" />  
-      </button> 
-    </div>
     <img src="/images/abangjamil.svg" alt="Rumah Abang Jamil" className="map-image" />
     <div className="map-address">Rumah Abang Jamil Klang, Plot 8, Lot 142770, Jalan Langat, Bandar Botanik, 42000 Klang, Selangor</div>
     <div className="map-links-container">
@@ -262,12 +249,6 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
 
       {activePopup === 'rsvp' && (
         <div className="rsvp-popup">
-          <div className="popup-header">
-            <h4 className="popup-title">RSVP</h4>
-            <button className="close-button-rsvp" onClick={handleClosePopup}> 
-              <img src="/images/close.png" alt="Close" className="close-icon" />  
-            </button> 
-          </div>
           {submissionStatus ? (
             <p className="submission-status">{submissionStatus}</p>
           ) : (
@@ -328,12 +309,6 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
 
 {activePopup === 'comment' && (
   <div className="comment-popup">
-    <div className="popup-header">
-            <h4 className="popup-title">Nota Kasih</h4>
-            <button className="close-button-comment" onClick={handleClosePopup}> 
-              <img src="/images/close.png" alt="Close" className="close-icon" />  
-            </button> 
-    </div>
     {commentStatus ? (
       <p className="comment-status">{commentStatus}</p>
     ) : (
