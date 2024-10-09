@@ -130,10 +130,6 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
     }
   };
 
-  const handleClosePopup = () => {
-    setActivePopup(null); // Close the popup when X button is clicked
-  };
-
   return (
     <div className="navbar">
       {(activePopup==='contacts' || activePopup==='map' || activePopup==='rsvp' || activePopup==='comment') && <div className="overlay"></div>}
