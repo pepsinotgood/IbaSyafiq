@@ -16,6 +16,8 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
   });
   const [submissionStatus, setSubmissionStatus] = useState(null);
   const [commentStatus, setCommentStatus] = useState(null);
+  const [activeButton, setActiveButton] = useState(null);
+
 
   const handleLaguClick = () => {
     if (!audioRef || !audioRef.current) {
@@ -41,6 +43,9 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
   };
 
   const handleButtonClick = (popupName) => {
+
+    setActiveButton(popupName); // Track the active button
+
     if (activePopup === popupName) {
       setActivePopup(null);
     } else {
@@ -134,47 +139,52 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
       {(activePopup==='contacts' || activePopup==='map' || activePopup==='rsvp' || activePopup==='comment') && <div className="overlay"></div>}
 
       <div className="guide-box">
-        <div className="logo-container">
-        <button className="logo-button" onClick={() => handleButtonClick('contacts')}>
-          <img src="/images/phone.svg" alt="Call Logo" className="logo-image" />
-        </button>
-        <span className="logo-text">Telefon</span>
-        </div>
+    <div className={`logo-container ${activeButton === 'contacts' ? 'active' : ''}`}>
+      <button className="logo-button" onClick={() => handleButtonClick('contacts')}>
+        <img src="/images/phone.svg" alt="Call Logo" className="logo-image" />
+      </button>
+      <span className="logo-text">Telefon</span>
+    </div>
 
-        <div className="logo-container">
-        <button className="logo-button" onClick={() => handleButtonClick('map')}>
-          <img src="/images/map.svg" alt="Map Logo" className="logo-image" />
-        </button>
-        <span className="logo-text">Lokasi</span>
-        </div>
+    <div className={`logo-container ${activeButton === 'map' ? 'active' : ''}`}>
+      <button className="logo-button" onClick={() => handleButtonClick('map')}>
+        <img src="/images/map.svg" alt="Map Logo" className="logo-image" />
+      </button>
+      <span className="logo-text">Lokasi</span>
+    </div>
 
-        <div className="logo-container">
-        <button className="logo-button" onClick={handleLaguClick}>
-          <img src={audioPlaying ? "/images/pause.png" : "/images/play.png"} alt="Lagu Logo" className="logo-image" />
-        </button>
-        <span className="logo-text">Lagu</span>
-        </div>
+    <div className={`logo-container ${activeButton === 'lagu' ? 'active' : ''}`}>
+      <button className="logo-button" onClick={handleLaguClick}>
+        <img src={audioPlaying ? "/images/pause.png" : "/images/play.png"} alt="Lagu Logo" className="logo-image" />
+      </button>
+      <span className="logo-text">Lagu</span>
+    </div>
 
-        <div className="logo-container">
-        <button className="logo-button" onClick={() => handleButtonClick('rsvp')}>
-          <img src="/images/rsvp.svg" alt="RSVP Logo" className="logo-image" />
-        </button>
-        <span className="logo-text">Kehadiran</span>
-        </div>
+    <div className={`logo-container ${activeButton === 'rsvp' ? 'active' : ''}`}>
+      <button className="logo-button" onClick={() => handleButtonClick('rsvp')}>
+        <img src="/images/rsvp.svg" alt="RSVP Logo" className="logo-image" />
+      </button>
+      <span className="logo-text">Kehadiran</span>
+    </div>
 
-        <div className="logo-container">
-        <button className="logo-button" onClick={() => handleButtonClick('comment')}>
-          <img src="/images/comment.svg" alt="Comment Logo" className="logo-image" />
-        </button>
-        <span className="logo-text">Nota Kasih</span>
-        </div>
-      </div>
+    <div className={`logo-container ${activeButton === 'comment' ? 'active' : ''}`}>
+      <button className="logo-button" onClick={() => handleButtonClick('comment')}>
+        <img src="/images/comment.svg" alt="Comment Logo" className="logo-image" />
+      </button>
+      <span className="logo-text">Nota Kasih</span>
+    </div>
+    </div>
       
-
       {activePopup === 'contacts' && (
         <div className="contacts-popup">
-          <button className="close-button-contact" onClick={handleClosePopup}> <div className='x-sign'> x </div></button> 
-          <div className="title"> Telefon </div>
+          <div className="popup-header">
+            <h4 className="popup-title">Telefon</h4>
+            <button className="close-button-contact" onClick={handleClosePopup}> 
+              <img src="/images/close.png" alt="Close" className="close-icon" />  
+            </button> 
+          </div>
+          <div className='inside-box'>
+          <br />
           <p className="contact-entry">
             <span className="name-wrapper">
               <span className="name">Zubaini</span>
@@ -219,39 +229,49 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
               </button>
             </span>
           </p>
-        </div>
-      )}
-
-      {activePopup === 'map' && (
-        <div className="map-popup">
-          <button className="close-button-map" onClick={handleClosePopup}> <div className='x-sign'> x </div></button> 
-          <div className="title"> Lokasi </div>
-          <img src="/images/abangjamil.svg" alt="Rumah Abang Jamil" className="map-image" />
-          <div className="map-address">Rumah Abang Jamil Klang, Plot 8, Lot 142770, Jalan Langat, Bandar Botanik, 42000 Klang, Selangor</div>
-          <div className="map-links-container">
-            <div className="map-list" align="left">
-              <a href="https://shorturl.at/gvu21" target="_blank" rel="noopener noreferrer">
-                <img src="/images/waze.svg" alt="Waze Icon" className="logo-map-image" />
-                buka di Waze
-              </a>
-            </div>
-            <div className="map-list" align="right">
-              <a href="https://maps.app.goo.gl/k7xvN97KtJcGBRCMA" target="_blank" rel="noopener noreferrer">
-                <img src="/images/gmap.svg" alt="Gmap Icon" className="logo-map-image" />
-                buka di Google Map
-              </a>
-            </div>
           </div>
         </div>
       )}
 
+{activePopup === 'map' && (
+  <div className="map-popup">
+    <div className="popup-header">
+      <h4 className="popup-title">Lokasi</h4>
+      <button className="close-button-map" onClick={handleClosePopup}> 
+        <img src="/images/close.png" alt="Close" className="close-icon" />  
+      </button> 
+    </div>
+    <img src="/images/abangjamil.svg" alt="Rumah Abang Jamil" className="map-image" />
+    <div className="map-address">Rumah Abang Jamil Klang, Plot 8, Lot 142770, Jalan Langat, Bandar Botanik, 42000 Klang, Selangor</div>
+    <div className="map-links-container">
+      <div className="map-list" align="left">
+        <a href="https://shorturl.at/gvu21" target="_blank" rel="noopener noreferrer">
+          <img src="/images/waze.svg" alt="Waze Icon" className="logo-map-image" />
+          buka di Waze
+        </a>
+      </div>
+      <div className="map-list" align="right">
+        <a href="https://maps.app.goo.gl/k7xvN97KtJcGBRCMA" target="_blank" rel="noopener noreferrer">
+          <img src="/images/gmap.svg" alt="Gmap Icon" className="logo-map-image" />
+          buka di Google Map
+        </a>
+      </div>
+    </div>
+  </div>
+)}
+
       {activePopup === 'rsvp' && (
         <div className="rsvp-popup">
-          <button className="close-button-rsvp" onClick={handleClosePopup}> <div className='x-sign'> x </div></button> 
-          <div className="title"> Kehadiran </div>
+          <div className="popup-header">
+            <h4 className="popup-title">RSVP</h4>
+            <button className="close-button-rsvp" onClick={handleClosePopup}> 
+              <img src="/images/close.png" alt="Close" className="close-icon" />  
+            </button> 
+          </div>
           {submissionStatus ? (
             <p className="submission-status">{submissionStatus}</p>
           ) : (
+            <div className='inside-box'>
             <form onSubmit={handleSubmit}>
               <input
                 type="text"
@@ -301,38 +321,46 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
               </select>
               <button className="submit-button" type="submit">Hantar Kehadiran</button>
             </form>
+            </div>
           )}
         </div>
       )}
 
-      {activePopup === 'comment' && (
-        <div className="comment-popup">
-          <button className="close-button-comment" onClick={handleClosePopup}> <div className='x-sign'> x </div></button> 
-          <div className="title"> Nota Kasih </div>
-          {commentStatus ? (
-            <p className="comment-status">{commentStatus}</p>
-          ) : (
-            <form onSubmit={handleCommentSubmit}>
-              <input
-                type="text"
-                name="name"
-                placeholder="Nama"
-                value={commentData.name}
-                onChange={handleCommentChange}
-                required
-              />
-              <textarea
-                name="comment"
-                placeholder="Pesanan"
-                value={commentData.comment}
-                onChange={handleCommentChange}
-                required
-              />
-              <button className="submit-button" type="submit">Hantar Pesanan</button>
-            </form>
-          )}
-        </div>
-      )}
+{activePopup === 'comment' && (
+  <div className="comment-popup">
+    <div className="popup-header">
+            <h4 className="popup-title">Nota Kasih</h4>
+            <button className="close-button-comment" onClick={handleClosePopup}> 
+              <img src="/images/close.png" alt="Close" className="close-icon" />  
+            </button> 
+    </div>
+    {commentStatus ? (
+      <p className="comment-status">{commentStatus}</p>
+    ) : (
+      <div className='inside-box'>
+      <form onSubmit={handleCommentSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Nama"
+          value={commentData.name}
+          onChange={handleCommentChange}
+          required
+        />
+        <textarea
+          name="comment"
+          placeholder="Pesanan"
+          value={commentData.comment}
+          onChange={handleCommentChange}
+          required
+        />
+        <button className="submit-button" type="submit">Hantar Pesanan</button>
+      </form>
+      </div>
+    )}
+  </div>
+)}
+
     </div>
   );
 };

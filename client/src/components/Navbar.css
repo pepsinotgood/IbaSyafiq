@@ -3,7 +3,7 @@
   position: fixed !important;
   bottom: 0;
   width: 100%;
-  height: 8.5%; /* Adjust height for responsiveness */
+  height: 9%; /* Adjust height for responsiveness */
   background-color: hsl(18, 32%, 40%);
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -23,50 +23,92 @@
   z-index: 999; /* Ensure it appears above other content */
 }
 
-.close-button-map{
-  border: none;
-  background-color: gray;
+.popup-header {
   display: flex;
-  flex-direction: row;
-  align-items: right;
-  width: 100%;
-  margin: 0%;
-  width: 5%;
+  width: 100;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+  margin-bottom: 1%;
+  margin-top: 1%;
 }
 
-.close-button-contact{
-  border: none;
-  background-color: gray;
-  display: flex;
-  flex-direction: column;
-  align-items: right;
-  margin: 1%;
-  width: 5%;
+.popup-title {
+  flex-grow: 1;
+  width: 100;
+  text-align: center;
+  font-size: 1.1rem;
+  color: whitesmoke;
+  margin: 0; /* Remove margin for perfect centering */
+  text-shadow:rgba(0, 0, 0, 0.1); /* Add shadow to the text */
 }
 
-.close-button-rsvp{
+.close-button-map {
+  background: none;
   border: none;
-  background-color: gray;
-  display: flex;
-  flex-direction: column;
-  align-items: right;
-  margin: 1%;
-  width: 5%;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 
-.close-button-comment{
+.close-button-map img {
+  display: block;
+}
+
+.close-button-contact {
+  position: absolute;
+  top: 10px;      /* Position the button 10px from the top */
+  right: 10px;    /* Position the button 10px from the right */
+  background: none;
   border: none;
-  background-color: gray;
-  display: flex;
-  flex-direction: column;
-  align-items: right;
-  margin: 1%;
+  cursor: pointer;
+}
+
+.close-button-contact img {
+  display: block;
+}
+
+.close-button-rsvp {
+  position: absolute;
+  top: 10px;      /* Position the button 10px from the top */
+  right: 10px;    /* Position the button 10px from the right */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button-rsvp img {
+  display: block;
 }
 
 .x-sign {
   font-weight: bold;
   color: white;
   font-size:x-large;
+}
+
+.close-icon {
+  width: 20px;   /* Adjust the size of the icon */
+  height: 20px;
+}
+
+.close-button-comment {
+  position: absolute;
+  top: 10px;      /* Position the button 10px from the top */
+  right: 10px;    /* Position the button 10px from the right */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.close-button-comment img {
+  display: block;
+}
+
+.inside-box{
+  margin-top: 0;
 }
 
 .guide-box {
@@ -107,6 +149,12 @@
   color: white;
 }
 
+.logo-container.active .logo-text {
+  font-weight: bold; /* Make the text bold when active */
+  font-size: 10.5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .title{
   font-weight: bold;
   margin-bottom: 2%;
@@ -124,13 +172,12 @@
   border: 1px solid #3a3a3a;
   color: white;
   border-radius: 7px;
-  padding: 0 2.5% 5% 5%;
+  padding: 0 1% 5% 5%;
   box-shadow: 0 2px 8px #52473e;
   justify-content: center;
-  max-width: 85%; /* Ensure popups are not too wide on mobile */
+  max-width: 100%; /* Ensure popups are not too wide on mobile */
   display: flex;
   flex-direction: column;
-  z-index: 1002;
 }
 
 .map-links-container {
@@ -160,16 +207,14 @@
 }
 
 .map-image {
-  margin-top: 2%;
   width: 95%;
-  border: 2px dotted #756f6d;
   border-radius: 7px;
 }
 
 .map-list a {
-  font-size: 0.84rem; 
+  font-size: 0.8rem; 
   color: inherit; /* Keeps the text color */
-  font-weight: bold;
+  font-weight:bold;
 }
 
 .contacts-popup{
@@ -183,7 +228,7 @@
   border-radius: 7px;
   padding: 0 5% 2% 2%;
   box-shadow: 0 2px 8px #52473e;
-  max-width: 85%; /* Ensure popups are not too wide on mobile */
+  max-width: 100%; /* Ensure popups are not too wide on mobile */
   text-align:right; /* Align text to the left */
   z-index: 1002;
 }
@@ -263,26 +308,27 @@
 }
 
 .comment-popup input {
-  padding: 6px;
-  margin-top: 15px;
+  padding: 5px;
+  margin-top: 0.5%;
   border-radius: 4px;
   border: 1px solid #6b3f26;
   background-color: white; /* Button background color */
   color: black; /* Button text color */
   cursor: pointer; /* Pointer cursor on hover */
   font-size: 0.75rem;
+  height: 15px;
 }
 
 .comment-popup textarea {
   padding: 5px;
-  margin-top: 15px;
+  margin-top: 10px;
   border-radius: 4px;
   border: 1px solid #6b3f26;
   background-color: white; /* Button background color */
   color: black; /* Button text color */
   cursor: pointer; /* Pointer cursor on hover */
   font-size: 0.75rem;
-  height: 90px; /* Adjust this value to make the textarea taller */
+  height: 100px; /* Adjust this value to make the textarea taller */
 }
 
 /* Adjustments for the RSVP form */
@@ -318,7 +364,7 @@
 
 .rsvp-popup input {
   padding: 5px;
-  margin-top: 15px;
+  margin-bottom: 15px;
   border-radius: 4px;
   border: 1px solid #6b3f26;
   background-color: white; /* Button background color */
@@ -335,7 +381,6 @@
 }
 
 .rsvp-popup select {
-  margin-top: 15px;
   padding: 5px;
   border-radius: 4px;
   border: 1px solid #ddd;
@@ -343,6 +388,10 @@
   max-height: 150px; /* Adjust this height as needed */
   overflow-y: auto; /* Add vertical scroll if content exceeds max-height */
   font-size: 0.75rem;
+}
+
+select[name="bilanganPax"]{
+  margin-bottom: 15px;
 }
 
 .rsvp-popup select option:disabled {

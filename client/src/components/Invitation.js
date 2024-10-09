@@ -3,7 +3,7 @@ import './Invitation.css';
 import Navbar from './Navbar';
 
 const images = [
-  '/images/invite-page-1.svg',
+  '/images/invite-page-1-compressed.svg',
   '/images/invite-page-2.svg',
   '/images/invite-page-3.svg',
 ];

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Invitation from './components/Invitation';
 import Navbar from './components/Navbar';
+import './App.css';
 
 const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
@@ -12,6 +13,7 @@ function App() {
   const [isContentVisible, setIsContentVisible] = useState(false); // Track if the main content is visible
   const [isEnvelopeVisible, setIsEnvelopeVisible] = useState(true); // Track if the envelope is still visible
   const audioRef = useRef(null); // Create a ref for the audio element
+  
 
   const triggerRSVP = () => {
     setActivePopup('rsvp'); // Set activePopup to 'rsvp' to trigger the RSVP popup
@@ -64,7 +66,7 @@ function App() {
         {isEnvelopeVisible && (
           <div className="envelope-container" onClick={handleEnvelopeClick}>
             <img
-              src="/images/envelope.svg"
+              src="/images/envelope.png"
               alt="Envelope with Seal Wax"
               className="envelope-image"
             />
