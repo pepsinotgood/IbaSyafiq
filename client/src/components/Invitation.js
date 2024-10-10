@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Invitation.css';
 import Navbar from './Navbar';
+import { MoonLoader } from 'react-spinners'; // Importing a spinner from react-spinners
 
 const images = [
   '/images/invite-page-1-compressed.svg',
@@ -21,19 +22,43 @@ function capitalizeName(name) {
 }
 
 const Invitation = ({ comments, fetchComments }) => {
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [loadedCount, setLoadedCount] = useState(0);
 
   useEffect(() => {
     fetchComments();
   }, [fetchComments]);
 
+  const handleImageLoad = () => {
+    setLoadedCount((prevCount) => prevCount + 1);
+  };
+
+  useEffect(() => {
+    if (loadedCount === images.length) {
+      setImagesLoaded(true);
+    }
+  }, [loadedCount]);
+
   return (
     <div className="invitation-container">
-      {/* Remove background audio logic since it's now handled at the App.js level */}
+      {/* Show react-spinners ClipLoader until all images are loaded */}
+      {!imagesLoaded && (
+        <div className="loading-spinner">
+          <MoonLoader color={"#572b1c"} loading={!imagesLoaded} size={50} />
+        </div>
+      )}
+      
       {images.map((image, index) => (
-        <div key={index} className="image-wrapper">
-          <img src={image} alt="" className="invitation-image" />
+        <div key={index} className="image-wrapper" style={{ display: imagesLoaded ? 'block' : 'none' }}>
+          <img
+            src={image}
+            alt=""
+            className="invitation-image"
+            onLoad={handleImageLoad}
+          />
         </div>
       ))}
+
       <div className="before-scrollable-image">
         <img src="/images/border-atas.svg" alt="" className="additional-image" />
       </div>

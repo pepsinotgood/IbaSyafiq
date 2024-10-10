@@ -93,6 +93,14 @@ body, html {
   margin-bottom: -10px !important;
 }
 
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+}
+
+
 @media (max-width: 1024px) {
   .invitation-container {
     background-size: cover;
