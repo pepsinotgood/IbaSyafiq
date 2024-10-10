@@ -63,6 +63,7 @@ const Invitation = ({ comments, fetchComments }) => {
         <img src="/images/border-atas.svg" alt="" className="additional-image" />
       </div>
       <div className="scrollable-container">
+        <div className='notaKasihTitle'>- Nota Kasih -</div>
         <div className="comments-container">
           {comments.map((comment, index) => (
             <div key={index} className="comment-box">

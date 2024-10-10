@@ -13,12 +13,6 @@ function App() {
   const [isContentVisible, setIsContentVisible] = useState(false); // Track if the main content is visible
   const [isEnvelopeVisible, setIsEnvelopeVisible] = useState(true); // Track if the envelope is still visible
   const audioRef = useRef(null); // Create a ref for the audio element
-  
-
-  const triggerRSVP = () => {
-    setActivePopup('rsvp'); // Set activePopup to 'rsvp' to trigger the RSVP popup
-    playAudio(); // Play audio when RSVP button is clicked
-  };
 
   const fetchComments = useCallback(async () => {
     try {
@@ -79,7 +73,6 @@ function App() {
             <Routes>
               <Route path="/" element={<Invitation comments={comments} fetchComments={fetchComments} />} />
             </Routes>
-            <button onClick={triggerRSVP}>Open RSVP Popup</button>
             <Navbar
               activePopup={activePopup}
               setActivePopup={setActivePopup}
