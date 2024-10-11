@@ -284,7 +284,8 @@ const Navbar = ({ activePopup, setActivePopup, fetchComments, audioPlaying, setA
                 onChange={handleChange}
                 required
               >
-                <option value="" disabled>Slot Masa</option>
+                <option value="" disabled>Angaran Masa Kehadiran</option>
+                <option value="6">6pm - 7pm</option>
                 <option value="7">7pm - 8pm</option>
                 <option value="8">8pm - 9pm</option>
                 <option value="9">9pm - 10pm</option>
